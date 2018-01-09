@@ -204,9 +204,12 @@ class TwitterOAuth extends Config
      *
      * @return array|object
      */
-    public function get($path, array $parameters = [])
-    {
-        return $this->http('GET', self::API_HOST, $path, $parameters);
+    public function get($path, array $parameters = [], $override_with_uploadhost = false) {
+        if($override_with_uploadhost) {
+            return $this->http('GET', self::UPLOAD_HOST, $path, $parameters);
+        } else{
+            return $this->http('GET', self::API_HOST, $path, $parameters);
+        }
     }
 
     /**
